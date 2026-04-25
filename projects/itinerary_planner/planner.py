@@ -107,8 +107,6 @@ def build_itinerary(
             break
 
         total_min = _duration_for_attraction(best_candidate)
-        if total_min < MIN_ATTRACTION_TOTAL_MINUTES:
-            break
         score = _score(best_candidate.tags, norm_preferences)
         start = current
         end = current + timedelta(minutes=total_min)

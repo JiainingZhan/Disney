@@ -1,5 +1,5 @@
-from collections import defaultdict
 import math
+from collections import defaultdict
 from typing import Dict, Iterable, List, Sequence, Set, Tuple
 
 from .data import ContentItem
@@ -60,11 +60,12 @@ def recommend_content(
     # lightweight category diversity
     category_count = defaultdict(int)
     picked: List[Tuple[ContentItem, float]] = []
+    max_per_category = max(1, math.ceil(top_n * MAX_CATEGORY_RATIO))
     for item, score in scored:
         if len(picked) >= top_n:
             break
         # Keep category diversity by capping each category to a portion of top_n.
-        if category_count[item.category] >= max(1, math.ceil(top_n * MAX_CATEGORY_RATIO)):
+        if category_count[item.category] >= max_per_category:
             continue
         picked.append((item, score))
         category_count[item.category] += 1
