@@ -1,13 +1,13 @@
 
 
-English summary: This repository contains two portfolio-ready Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and project documentation.
+English summary: This repository contains two Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and extensible architecture.
 
-这个仓库实现了一个可直接展示给面试官的项目组合：
+这个仓库实现了两个 Disney 主题项目：
 
 - 主项目：**迪士尼乐园行程智能规划平台（MVP）**
-- 小项目：**迪士尼 IP 内容推荐系统**
+- 辅项目：**迪士尼 IP 内容推荐系统**
 
-目标：体现业务理解 + 工程实现能力，支持快速演示与二次扩展。
+设计目标：模块化架构、可演示的业务逻辑、清晰的测试覆盖。
 
 ---
 
@@ -42,7 +42,7 @@ tests/
 
 ### 核心思路
 
-- 游乐设施：按“偏好得分 / 预计耗时”计算优先级，贪心选择
+- 游乐设施：按"偏好得分 / 预计耗时"计算优先级，贪心选择
 - 演出项目：固定时间窗，若时间可达则优先插入
 - 最终输出：按时间排序的结构化行程
 
@@ -56,7 +56,7 @@ python -m projects.itinerary_planner.cli \
 
 ---
 
-## 小项目：迪士尼 IP 内容推荐系统
+## 辅项目：迪士尼 IP 内容推荐系统
 
 ### 已实现能力
 
@@ -88,11 +88,11 @@ python -m unittest discover -s tests -v
 
 ---
 
-## 面试讲述建议（可直接复用）
+## 业务设计说明
 
-- 业务目标：减少游客规划成本，提升游玩效率和体验
-- 技术取舍：先做可解释、可复现的规则+评分模型（MVP），后续可升级 ML
-- 可量化指标（示例）：行程规划时间下降、偏好命中率提升、推荐点击率提升
+- **行程规划核心价值**：自动化解析用户偏好与时空约束，生成可执行的行程安排
+- **技术实现策略**：采用可解释的规则+评分模型（MVP 阶段），便于调试与迭代
+- **量化指标示例**：行程生成耗时、偏好匹配度、演出覆盖率
 
 ---
 
