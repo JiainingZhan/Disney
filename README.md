@@ -1,4 +1,8 @@
+# ✨ Disney Project Suite
 
+> Intelligent theme park experience optimizer with modular architecture and extensible design
+
+---
 
 English summary: This repository contains two Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and extensible architecture.
 
