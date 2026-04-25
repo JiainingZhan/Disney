@@ -4,6 +4,8 @@ from typing import Dict, Iterable, List, Set
 
 from .data import Attraction, Show
 
+SHOW_LOOKAHEAD_MINUTES = 20
+
 
 @dataclass(frozen=True)
 class PlanItem:
@@ -65,7 +67,11 @@ def build_itinerary(
                     next_show = show
                     next_show_start = show_start
 
-        if next_show is not None and next_show_start is not None and next_show_start <= current + timedelta(minutes=20):
+        if (
+            next_show is not None
+            and next_show_start is not None
+            and next_show_start <= current + timedelta(minutes=SHOW_LOOKAHEAD_MINUTES)
+        ):
             score = _score(next_show.tags, norm_preferences)
             timeline.append(
                 PlanItem(
@@ -114,4 +120,3 @@ def build_itinerary(
         current = end
 
     return sorted(timeline, key=lambda item: item.start)
-

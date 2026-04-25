@@ -3,6 +3,9 @@ from typing import Dict, Iterable, List, Sequence, Set, Tuple
 
 from .data import ContentItem
 
+CATEGORY_BONUS = 0.05
+MAX_CATEGORY_RATIO = 0.5
+
 
 IP_TO_TAGS: Dict[str, Set[str]] = {
     "frozen": {"princess", "music", "family", "magic"},
@@ -33,7 +36,7 @@ def _candidate_score(user_tags: Set[str], item: ContentItem) -> float:
     if not user_tags:
         return 0.0
     overlap_ratio = len(overlap) / len(user_tags)
-    category_bonus = 0.05 if item.category in {"park_experience", "merch"} else 0.0
+    category_bonus = CATEGORY_BONUS if item.category in {"park_experience", "merch"} else 0.0
     return overlap_ratio + category_bonus
 
 
@@ -57,7 +60,8 @@ def recommend_content(
     for item, score in scored:
         if len(picked) >= top_n:
             break
-        if category_count[item.category] >= max(1, top_n // 2):
+        # Keep category diversity by capping each category to a portion of top_n.
+        if category_count[item.category] >= max(1, int(top_n * MAX_CATEGORY_RATIO)):
             continue
         picked.append((item, score))
         category_count[item.category] += 1
@@ -73,4 +77,3 @@ def recommend_content(
             picked.append((item, score))
 
     return picked
-
