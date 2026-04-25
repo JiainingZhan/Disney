@@ -1,5 +1,7 @@
 # Disney 求职项目组合（1 个主项目 + 1 个小项目）
 
+English summary: This repository contains two portfolio-ready Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and project documentation.
+
 这个仓库实现了一个可直接展示给面试官的项目组合：
 
 - 主项目：**迪士尼乐园行程智能规划平台（MVP）**

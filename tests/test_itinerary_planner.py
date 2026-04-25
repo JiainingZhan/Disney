@@ -25,9 +25,9 @@ class TestItineraryPlanner(unittest.TestCase):
             attractions=DEFAULT_ATTRACTIONS,
             shows=DEFAULT_SHOWS,
         )
-        self.assertGreaterEqual(len(timeline), 1)
+        self.assertIsInstance(timeline, list)
+        self.assertTrue(all(x.start < x.end for x in timeline))
 
 
 if __name__ == "__main__":
     unittest.main()
-

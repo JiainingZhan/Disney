@@ -95,7 +95,7 @@ def build_itinerary(
             if attraction.name in used_attractions:
                 continue
             total_min = _duration_for_attraction(attraction)
-            if total_min < MIN_ATTRACTION_TOTAL_MINUTES:
+            if total_min < max(1, MIN_ATTRACTION_TOTAL_MINUTES):
                 continue
             finish = current + timedelta(minutes=total_min)
             if finish > end_time:
