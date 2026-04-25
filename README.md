@@ -2,20 +2,20 @@
 
 > Intelligent theme park experience optimizer with modular architecture and extensible design
 
----
-
-English summary: This repository contains two Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and extensible architecture.
-
-这个仓库实现了两个 Disney 主题项目：
-
-- 主项目：**迪士尼乐园行程智能规划平台（MVP）**
-- 辅项目：**迪士尼 IP 内容推荐系统**
-
-设计目标：模块化架构、可演示的业务逻辑、清晰的测试覆盖。
+This repository contains two Disney-themed projects: (1) an intelligent park itinerary planner MVP and (2) a Disney IP content recommender, with runnable CLIs, tests, and extensible architecture.
 
 ---
 
-## 目录结构
+## Project Overview
+
+- **Main Project**: Disney Park Itinerary Intelligent Planning Platform (MVP)
+- **Secondary Project**: Disney IP Content Recommendation System
+
+Design Goals: Modular architecture, demonstrable business logic, clear test coverage.
+
+---
+
+## Directory Structure
 
 ```text
 projects/
@@ -34,23 +34,23 @@ tests/
 
 ---
 
-## 主项目：迪士尼乐园行程智能规划平台（MVP）
+## Main Project: Disney Park Itinerary Planning Platform (MVP)
 
-### 已实现能力
+### Implemented Features
 
-- 用户偏好输入（亲子/刺激/拍照）
-- 入园时间与可用时长
-- 基于排队时间、人流因子、偏好得分的行程自动生成
-- 演出（固定开场时间）自动插入行程
-- 结果输出为时间轴（timeline）
+- User preference input (family-friendly / thrill / photography)
+- Park entry time and available duration
+- Automatic itinerary generation based on queue time, crowd factors, and preference scoring
+- Show attractions (fixed start times) automatically inserted into itinerary
+- Results output as structured timeline
 
-### 核心思路
+### Core Algorithm
 
-- 游乐设施：按"偏好得分 / 预计耗时"计算优先级，贪心选择
-- 演出项目：固定时间窗，若时间可达则优先插入
-- 最终输出：按时间排序的结构化行程
+- Attractions: Priority calculated by "preference score / estimated duration", greedy selection
+- Shows: Fixed time windows, prioritized insertion if time permits
+- Final Output: Time-ordered structured itinerary
 
-### 运行演示
+### Usage Example
 
 ```bash
 python -m projects.itinerary_planner.cli \
@@ -60,21 +60,21 @@ python -m projects.itinerary_planner.cli \
 
 ---
 
-## 辅项目：迪士尼 IP 内容推荐系统
+## Secondary Project: Disney IP Content Recommendation System
 
-### 已实现能力
+### Implemented Features
 
-- 用户输入喜欢的 IP（如 Frozen, Marvel）
-- 基于标签重叠与类别匹配的候选打分
-- 输出 Top-N 推荐内容（电影/角色/商品/乐园体验）
+- User input of favorite IPs (e.g., Frozen, Marvel)
+- Candidate scoring based on tag overlap and category matching
+- Output Top-N recommended content (movies / characters / merchandise / park experiences)
 
-### 核心思路
+### Core Algorithm
 
-- 建立统一标签体系（角色、风格、年龄段、类型等）
-- 计算用户喜好标签与候选内容标签重叠得分
-- 使用类别轻度加权，避免推荐结果过于单一
+- Unified tag system (characters, style, age group, type, etc.)
+- Score calculation based on user preference tags and candidate content tag overlap
+- Category light weighting to avoid recommendation homogeneity
 
-### 运行演示
+### Usage Example
 
 ```bash
 python -m projects.ip_recommender.cli \
@@ -84,7 +84,7 @@ python -m projects.ip_recommender.cli \
 
 ---
 
-## 测试
+## Testing
 
 ```bash
 python -m unittest discover -s tests -v
@@ -92,17 +92,17 @@ python -m unittest discover -s tests -v
 
 ---
 
-## 业务设计说明
+## Design Rationale
 
-- **行程规划核心价值**：自动化解析用户偏好与时空约束，生成可执行的行程安排
-- **技术实现策略**：采用可解释的规则+评分模型（MVP 阶段），便于调试与迭代
-- **量化指标示例**：行程生成耗时、偏好匹配度、演出覆盖率
+- **Itinerary Planning Value**: Automated parsing of user preferences and spatio-temporal constraints to generate executable itineraries
+- **Technical Strategy**: Interpretable rule-based + scoring model (MVP phase) for easy debugging and iteration
+- **Metrics Example**: Itinerary generation time, preference match rate, show coverage rate
 
 ---
 
-## 后续可扩展方向
+## Future Extensibility
 
-- 接入真实排队与演出 API
-- 行程规划从贪心升级为动态规划/启发式搜索
-- 推荐系统从标签规则升级为协同过滤/向量召回
-- 增加 Web 前端与可视化看板
+- Integration with real-time queue and show schedule APIs
+- Itinerary planning upgrade from greedy to dynamic programming / heuristic search
+- Recommendation system upgrade from rule-based to collaborative filtering / vector recall
+- Add web frontend and visualization dashboard
