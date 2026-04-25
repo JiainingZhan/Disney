@@ -4,7 +4,8 @@ from typing import Dict, Iterable, List, Set
 
 from .data import Attraction, Show
 
-SHOW_LOOKAHEAD_MINUTES = 20
+SHOW_ARRIVAL_WINDOW_MINUTES = 20
+MIN_ATTRACTION_TOTAL_MINUTES = 5
 
 
 @dataclass(frozen=True)
@@ -70,7 +71,7 @@ def build_itinerary(
         if (
             next_show is not None
             and next_show_start is not None
-            and next_show_start <= current + timedelta(minutes=SHOW_LOOKAHEAD_MINUTES)
+            and next_show_start <= current + timedelta(minutes=SHOW_ARRIVAL_WINDOW_MINUTES)
         ):
             score = _score(next_show.tags, norm_preferences)
             timeline.append(
@@ -91,11 +92,13 @@ def build_itinerary(
             if attraction.name in used_attractions:
                 continue
             total_min = _duration_for_attraction(attraction)
+            if total_min < MIN_ATTRACTION_TOTAL_MINUTES:
+                continue
             finish = current + timedelta(minutes=total_min)
             if finish > end_time:
                 continue
             score = _score(attraction.tags, norm_preferences)
-            ratio = score / max(1, total_min)
+            ratio = score / total_min
             if ratio > best_ratio:
                 best_ratio = ratio
                 best_candidate = attraction
@@ -104,6 +107,8 @@ def build_itinerary(
             break
 
         total_min = _duration_for_attraction(best_candidate)
+        if total_min < MIN_ATTRACTION_TOTAL_MINUTES:
+            break
         score = _score(best_candidate.tags, norm_preferences)
         start = current
         end = current + timedelta(minutes=total_min)

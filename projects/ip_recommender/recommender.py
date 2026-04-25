@@ -1,9 +1,12 @@
 from collections import defaultdict
+import math
 from typing import Dict, Iterable, List, Sequence, Set, Tuple
 
 from .data import ContentItem
 
+# 5% boost for park experiences and merchandise to reflect monetization/engagement value.
 CATEGORY_BONUS = 0.05
+# Limit each category to 50% of the result list to keep recommendation diversity.
 MAX_CATEGORY_RATIO = 0.5
 
 
@@ -61,7 +64,7 @@ def recommend_content(
         if len(picked) >= top_n:
             break
         # Keep category diversity by capping each category to a portion of top_n.
-        if category_count[item.category] >= max(1, int(top_n * MAX_CATEGORY_RATIO)):
+        if category_count[item.category] >= max(1, math.ceil(top_n * MAX_CATEGORY_RATIO)):
             continue
         picked.append((item, score))
         category_count[item.category] += 1
