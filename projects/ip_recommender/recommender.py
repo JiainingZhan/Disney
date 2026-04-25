@@ -10,6 +10,7 @@ CATEGORY_BONUS = 0.05
 MAX_CATEGORY_RATIO = 0.5
 
 
+# Keys must stay in normalized form produced by _normalize_like_name (lower_snake_case).
 IP_TO_TAGS: Dict[str, Set[str]] = {
     "frozen": {"princess", "music", "family", "magic"},
     "marvel": {"hero", "action", "team", "thrill"},

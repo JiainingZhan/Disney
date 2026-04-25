@@ -35,7 +35,10 @@ def _duration_for_attraction(attraction: Attraction) -> int:
 
 
 def _to_dt(day: date, time_text: str) -> datetime:
-    hour, minute = [int(x) for x in time_text.split(":", maxsplit=1)]
+    try:
+        hour, minute = [int(x) for x in time_text.split(":", maxsplit=1)]
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"Invalid start_time '{time_text}'. Expected format is HH:MM.") from exc
     return datetime.combine(day, datetime.min.time()).replace(hour=hour, minute=minute)
 
 
